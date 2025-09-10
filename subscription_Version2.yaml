@@ -1,0 +1,46 @@
+# 首次运行由脚本自动生成。手动填内容仅为占位
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: :9090
+proxies: []
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies: []
+  - name: ♻️ 自动选择
+    type: url-test
+    proxies: []
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+  - name: 🎥 流媒体解锁
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+      - 🚀 节点选择
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - DOMAIN-KEYWORD,google,🚀 节点选择
+  - DOMAIN-KEYWORD,facebook,🚀 节点选择
+  - DOMAIN-KEYWORD,netflix,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,openai,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,telegram,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,youtube,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,twitter,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,instagram,🎥 流媒体解锁
+  - DOMAIN-KEYWORD,github,🚀 节点选择
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 节点选择
