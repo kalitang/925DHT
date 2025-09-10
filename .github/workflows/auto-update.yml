@@ -1,0 +1,32 @@
+name: Auto update Clash subscription
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天UTC+8上午10点自动运行
+  workflow_dispatch:      # 允许手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install pyyaml requests
+
+      - name: Run main.py
+        run: python main.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add subscription.yaml
+          git commit -m "auto: update clash subscription $(date '+%Y-%m-%d %H:%M')" || echo "No changes to commit"
+          git push
